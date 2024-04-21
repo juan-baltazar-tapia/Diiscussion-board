@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import { supabase } from "../client";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+const clientID = import.meta.env.VITE_CLIENT_ID;
+const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
 
 const HomePage = () => {
   // display all albums
   // selecting all albums
   const [albums, setAlbums] = useState([]);
+
+  const handleClick = async () => {
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: "Basic " + btoa(clientID + ":" + clientSecret),
+      },
+      body: "grant_type=client_credentials",
+    });
+    const data = await response.json();
+
+    console.log("ACEESS TOKEN", data.access_token);
+    return data.access_token;
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,13 +40,15 @@ const HomePage = () => {
 
   return (
     <div>
+      <h2>Get access token</h2>
+      <button onClick={handleClick}>Get token</button>
       <h2>Latest Discussion</h2>
       <ul>
         {albums &&
-          albums.map((album) => {
+          albums.map((album, index) => {
             return (
-              <Link to={`/album/${album.id}/${album.title}`} >
-                <li key={album.id}>{album.title}</li>
+              <Link key={index} to={`/album/${album.id}/${album.title}`}>
+                <li>{album.title}</li>
               </Link>
             );
           })}
