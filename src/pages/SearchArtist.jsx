@@ -11,7 +11,6 @@ const SearchArtist = () => {
   const [artistId, setArtistId] = useState("");
 
   const handleArtistSearchSubmit = async () => {
-    console.log("HANDLE ARTIST RAN");
     const response = await fetch(
       `https://api.spotify.com/v1/search?q=${userInput}&type=artist`,
       {
@@ -23,7 +22,7 @@ const SearchArtist = () => {
 
     const data = await response.json();
     setSearchResults(data.artists.items);
-    console.log("SEARCH RESULTS", data.artists.items);
+    console.log("SEARCH RESULTS", data.artists);
   };
 
   return (
@@ -48,7 +47,10 @@ const SearchArtist = () => {
                       {/* if result.images[0] is undefined, accessing result.images[0].url will throw an error  */}
                       {/* To fix this, you can use optional chaining (?.) to safely access the
                        url property only if result.images[0] exists. */}
-                      <img src={result.images?.[0]?.url || ''} width="300px"></img>
+                      <img
+                        src={result.images?.[0]?.url || ""}
+                        width="300px"
+                      ></img>
                     </li>
                   </Link>
                 );
