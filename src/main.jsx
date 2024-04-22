@@ -5,8 +5,11 @@ import NavBar from "./Components/NavBar";
 import AddAlbum from "./pages/AddAlbum";
 import Album from "./Components/Album";
 import SearchArtist from "./pages/SearchArtist";
+import Song from "./Components/Song";
+import MakeComment from "./pages/MakeComment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
+import ViewComments from "./pages/ViewComments";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -17,6 +20,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/search-artist" element={<SearchArtist />} />
           <Route path="/addAlbum/:artistId" element={<AddAlbum />} />
           <Route path="/album/:id/:title" element={<Album />} />
+          <Route path="/album/:songId" element={<Song />} />
+          <Route path="/addComment/:songId" element={<MakeComment />} />
+          <Route path="/comments" element={<ViewComments />} />
+          
           {/* <Route path="/create" element={<CreatePokemon />} /> */}
         </Route>
       </Routes>

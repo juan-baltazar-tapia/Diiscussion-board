@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Route, useParams, Link } from "react-router-dom";
 import { supabase } from "../client";
 
 const Album = ({album_title}) => {
@@ -21,8 +21,13 @@ const Album = ({album_title}) => {
         <h1>{title}</h1>
       <ul>
         {songs &&
-          songs.map((song) => {
-            return <li key={song.id}>{song.title}</li>;
+          songs.map((song, index) => {
+            return (
+              <Link key={index} to={`/album/${song.id}`}>
+                <li>{song.title}</li>
+              </Link>
+            )
+            // return <li key={song.id}>{song.title}</li>;
           })}
       </ul>
     </div>

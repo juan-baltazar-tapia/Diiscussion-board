@@ -47,8 +47,11 @@ const HomePage = () => {
         {albums &&
           albums.map((album, index) => {
             return (
-              <Link key={index} to={`/album/${album.id}/${album.title}`}>
-                <li>{album.title}</li>
+              <Link key={index} to={`/album/${album.id}/${album.album_name}`}>
+                <li>
+                  {album.album_name}
+                  <img src={album.album_cover} width="200px" alt="" />
+                </li>
               </Link>
             );
           })}

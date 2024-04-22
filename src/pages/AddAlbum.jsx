@@ -128,15 +128,7 @@ const AddAlbum = () => {
     } catch (error) {
       console.error("Error adding album:", error);
     }
-
-    // Prepare the songs data with the album UUID and default upvotes value
-
-    // const {  error: albumError } = await supabase
-    // .from("songs")
-    // .insert({
-    //   title: '',
-    //   album_id: album.id
-    // })
+    window.location = "/";
   };
   //console.log(songs)
 
@@ -152,7 +144,6 @@ const AddAlbum = () => {
       );
       const data = await response.json();
 
-      //filter only albums
       setAlbums(data.items.filter((item) => item.album_group === "album"));
     };
     fetchAlbums();
