@@ -23,11 +23,11 @@ const ViewComments = () => {
           comments.map((comment, index) => {
             return (
               <SongComponent
+                key={index}
                 content={comment.content}
                 title={comment.title}
                 songId={comment.song_id}
-                commentId = {comment.id}
-            
+                commentId={comment.id}
               />
             );
           })}

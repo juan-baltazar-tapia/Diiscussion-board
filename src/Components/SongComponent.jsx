@@ -44,6 +44,28 @@ const SongComponent = ({ content, title, songId, commentId }) => {
     }
   };
 
+  const handleDelete = async () => {
+    // Show a confirmation popup
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+
+    console.log("DELETE");
+
+    if (confirmDelete) {
+      const { data, error } = await supabase
+        .from("comments")
+        .delete()
+        .eq("id", commentId);
+      window.location = "/comments";
+    }
+    if (confirmDelete && error ) {
+        alert("Unable to delete commenet", error)
+    }
+  };
+
+
+
   return (
     <div>
       <h2>{title}</h2>
@@ -55,6 +77,14 @@ const SongComponent = ({ content, title, songId, commentId }) => {
           width="20px"
         />
       </Link>
+      <button onClick={handleDelete}>
+        <img
+          className="edit-icon"
+          alt="delete button"
+          src="/src/assets/delete.png"
+          width="20px"
+        />
+      </button>
       <h3>On the song {songName}</h3>
       <p>{content}</p>
       <p>Created ....TODO</p>
