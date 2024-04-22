@@ -11,8 +11,7 @@ const Song = () => {
 
   useEffect(() => {
     const fetchSongData = async () => {
-      const { data } = await supabase.from("songs").select().eq("id", songId).order('created_at', {ascending: false});
-      console.log("data", data);
+      const { data } = await supabase.from("songs").select().eq("id", songId);
       setSongData(data[0]);
       setUpvotes(data[0].upvotes);
     };
