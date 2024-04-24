@@ -37,27 +37,42 @@ const HomePage = () => {
     };
     fetchData();
   }, []);
+   {/* <h2>Get access token</h2>
+      <button onClick={handleClick}>Get token</button> */}
 
-  return (
-    <div>
-      <h2>Get access token</h2>
+      return (
+        
+        <div className="bg-gray-900 text-white min-h-screen">
+             <h2>Get access token</h2>
       <button onClick={handleClick}>Get token</button>
-      <h2>Latest Discussion</h2>
-      <ul>
-        {albums &&
-          albums.map((album, index) => {
-            return (
-              <Link key={index} to={`/album/${album.id}/${album.album_name}`}>
-                <li>
-                  {album.album_name}
-                  <img src={album.album_cover} width="200px" alt="" />
-                </li>
-              </Link>
-            );
-          })}
-      </ul>
-    </div>
-  );
+          <div className="container mx-auto py-8">
+            <h1 className="text-4xl font-bold mb-8">Latest Discussion</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {albums &&
+                albums.map((album, index) => (
+                  <Link
+                    key={index}
+                    to={`/album/${album.id}/${album.album_name}`}
+                    className="bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                  >
+                    <div className="relative">
+                      <img
+                        src={album.album_cover}
+                        alt={album.album_name}
+                        className="w-full h-64 object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-50"></div>
+                    </div>
+                    <div className="p-6">
+                      <h2 className="text-xl font-semibold mb-2">{album.album_name}</h2>
+                      <p className="text-gray-400">{album.artist_name}</p>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </div>
+      );
 };
 
 export default HomePage;

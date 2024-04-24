@@ -19,46 +19,62 @@ const SearchArtist = () => {
         },
       }
     );
-
     const data = await response.json();
     setSearchResults(data.artists.items);
-    console.log("SEARCH RESULTS", data.artists);
   };
-
-  return (
-    <>
-      <div>
-        <h3>Search Artist</h3>
-        <input type="text" onChange={(e) => setUserInput(e.target.value)} />
-        <button onClick={handleArtistSearchSubmit}>Search</button>
-        <div>
-          <ul>
-            {searchResults &&
-              searchResults.map((result, index) => {
-                return (
-                  <Link key={index} to={`/addAlbum/${result.id}`}>
-                    <li
-                      onClick={() => {
-                        console.log(result.id);
-                        setArtistId(result.id);
-                      }}
-                    >
-                      {result.name}
-                      {/* if result.images[0] is undefined, accessing result.images[0].url will throw an error  */}
+   {/* if result.images[0] is undefined, accessing result.images[0].url will throw an error  */}
                       {/* To fix this, you can use optional chaining (?.) to safely access the
                        url property only if result.images[0] exists. */}
-                      <img
-                        src={result.images?.[0]?.url || ""}
-                        width="300px"
-                      ></img>
-                    </li>
-                  </Link>
-                );
-              })}
-          </ul>
+
+  return (
+    <div className="bg-gray-900 text-white min-h-screen">
+      <div className="container mx-auto py-8">
+        <h3 className="text-3xl font-bold mb-8">Search Artist</h3>
+        <div className="flex items-center mb-8">
+          <input
+            type="text"
+            onChange={(e) => setUserInput(e.target.value)}
+            placeholder="Enter artist name"
+            className="w-full px-4 py-2 bg-gray-800 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <button
+            onClick={handleArtistSearchSubmit}
+            className="px-6 py-2 bg-green-500 text-white rounded-r-lg font-semibold hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+          >
+            Search
+          </button>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+          {searchResults &&
+            searchResults.map((result, index) => (
+              <Link
+                key={index}
+                to={`/addAlbum/${result.id}`}
+                className="bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+              >
+                <div
+                  onClick={() => {
+                    setArtistId(result.id);
+                  }}
+                  className="cursor-pointer"
+                >
+                  <div className="relative">
+                    <img
+                      src={result.images?.[0]?.url || ""}
+                      alt={result.name}
+                      className="w-full h-64 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-50"></div>
+                  </div>
+                  <div className="p-6">
+                    <p className="text-xl font-semibold">{result.name}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

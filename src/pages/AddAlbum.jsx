@@ -7,27 +7,43 @@ const AddAlbum = () => {
   const { artistId } = useParams();
   const [albums, setAlbums] = useState([]);
   const [songs, setSongs] = useState([]);
+  const [albumInfo, setAlbumInfo] = useState(null);
 
-  const [albumInfo, setAlbumInfo] = useState({
-    album_name: "",
-    artist_name: "",
-    label: "",
-    album_cover: "",
-    release_date: "",
-    total_tracks: "",
-    artist_link: "",
-    album_link: "",
-  });
+  useEffect( () => {
+    const fetchAlbumInfo = async () => {
+    
+      const response = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      const data = await response.json();
+      
+      setAlbumInfo({
+        artist_name: data.artists[0].name || "",
+        album_name: data.name || "",
+        label: data.label || "",
+        album_cover: data.images[0].url || "",
+        release_date: data.release_date || "",
+        total_tracks: data.total_tracks || "",
+        artist_link: data.artists[0].uri || "",
+        album_link: data.external_urls.spotify || "",
+      });
+      setSongs(data.tracks.items);
+      console.log("ALBUM INFO SET", albumInfo)
+      //console.log("SONGS", songs);
+    };
 
-  const getAlbumInfo = async (id) => {
-    console.log("ALBUM ID", id);
+  }, [])
+
+  const handleClick =  async(id) => {
     const response = await fetch(`https://api.spotify.com/v1/albums/${id}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
     const data = await response.json();
-    console.log("DATA", data);
+    
     setAlbumInfo({
       artist_name: data.artists[0].name || "",
       album_name: data.name || "",
@@ -39,10 +55,12 @@ const AddAlbum = () => {
       album_link: data.external_urls.spotify || "",
     });
     setSongs(data.tracks.items);
-    //console.log("SONGS", songs);
-  };
+    addAlbum();
+  }
+  
 
   const addAlbum = async () => {
+    //fetchAlbumInfo(id);
     try {
       // Check if the artist already exists in the "artists" table
       console.log("artist name", albumInfo);
@@ -81,6 +99,7 @@ const AddAlbum = () => {
       }
       console.log("ARTIST ID", artistId);
 
+
       // Insert the album into the "albums" table with the artist ID
       const { data: album, error: albumError } = await supabase
         .from("albums")
@@ -108,7 +127,6 @@ const AddAlbum = () => {
         album_id: albumId,
         title: song.name,
         preview_url: song.preview_url,
-        // Add other song properties as needed
         upvotes: 0, // Set default upvotes value to 0
         duration: song.duration_ms,
       }));
@@ -151,41 +169,52 @@ const AddAlbum = () => {
 
   return (
     <>
-      <h2>Select Album</h2>
-      <div>
-        <ul>
-          {albums ? (
-            albums.map((album, index) => {
-              return (
-                <li key={index}>
-                  {album.name}
-                  <img
-                    src={album.images?.[0]?.url || ""}
-                    width="100px"
-                    alt="Album Name and Cover"
-                  />
-                  <button
-                    onClick={() => {
-                      getAlbumInfo(album.id);
-                    }}
-                  >
-                    View Album
-                  </button>
-                </li>
-              );
-            })
+      <div className="bg-gray-900 text-white min-h-screen">
+        <div className="container mx-auto py-8">
+          <h2 className="text-3xl font-bold mb-8">Select Album</h2>
+          {albums && albums.length > 1? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+              {albums.map((album, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+                >
+                  <div className="relative">
+                    <img
+                      src={album.images?.[0]?.url || ""}
+                      alt="Album Name and Cover"
+                      className="w-full h-64 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-50"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold mb-2">{album.name}</h3>
+                    <Link to={`/viewsongs/${album.id}`}>
+                    <button
+                      className="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-500 mr-4"
+                    >
+                      View Album
+                    </button>
+
+                    </Link>
+                 
+                    <button
+                      onClick={() => handleClick(album.id)}
+                      className="px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    >
+                      Add Album
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
-            <p>This artist does not have any albums</p>
+            <p className="text-xl text-gray-400">
+              This artist does not have any albums
+            </p>
           )}
-        </ul>
-        {albumInfo && albumInfo.name}
-        <ul>
-          {songs &&
-            songs.map((song, index) => {
-              return <li key={index}>{song.name}</li>;
-            })}
-        </ul>
-        {albumInfo && <button onClick={addAlbum}>Add Album</button>}
+         
+        </div>
       </div>
     </>
   );

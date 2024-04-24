@@ -11,6 +11,7 @@ import EditComment from "./pages/EditComment";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import ViewComments from "./pages/ViewComments";
+import ViewSongs from "./pages/ViewSongs";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/addComment/:songId" element={<MakeComment />} />
           <Route path="/comments" element={<ViewComments />} />
           <Route path="/edit/:commentId" element={<EditComment />} />
+          <Route path="/viewsongs/:albumId" element={<ViewSongs />} />
           
           {/* <Route path="/create" element={<CreatePokemon />} /> */}
         </Route>
