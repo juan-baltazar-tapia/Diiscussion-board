@@ -3,34 +3,23 @@ import { supabase } from "../client";
 import { Link } from "react-router-dom";
 
 const SongComponent = ({ content, title, songId, commentId }) => {
-  const [songName, setSongName] = useState("");
-  const [artistName, setArtistName] = useState("");
-  const [time, setTime] = useState("")
+
+  const [time, setTime] = useState("");
   const [upvotes, setUpvotes] = useState(0);
 
   useEffect(() => {
-    const fetchSongTitle = async () => {
-      const { data } = await supabase
-        .from("songs")
-        .select()
-        .eq("id", songId)
-        .single();
-        console.log("song data", data)
-      setSongName(data.title);
-      setTime(data.created_at)
-    };
-
     const fetchCommentData = async () => {
       const { data } = await supabase
         .from("comments")
         .select()
         .eq("id", commentId);
+      console.log("data from songcomonent",data[0])
       setUpvotes(data[0].upvotes);
+      setTime(data[0].created_at);
     };
 
-    fetchSongTitle();
     fetchCommentData();
-  }, []);
+  }, [commentId]);
 
   const handleClick = async () => {
     const newUpvotes = upvotes + 1;
@@ -66,33 +55,33 @@ const SongComponent = ({ content, title, songId, commentId }) => {
     }
   };
 
-  function timeAgo(timestamp) {
+  const timeAgo = (timestamp) => {
     // Parse the timestamp string into a Date object
     const createdAt = new Date(timestamp);
-  
+
     // Get the current datetime
     const now = new Date();
-  
+
     // Calculate the time difference in milliseconds
     const timeDiff = now.getTime() - createdAt.getTime();
-  
+
     // Calculate the difference in seconds, minutes, hours, and days
     const seconds = Math.floor(timeDiff / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-  
+
     // Generate the string representation
     if (days > 0) {
-      return `${days} day${days > 1 ? 's' : ''} ago`;
+      return `${days} day${days > 1 ? "s" : ""} ago`;
     } else if (hours > 0) {
-      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      return `${hours} hour${hours > 1 ? "s" : ""} ago`;
     } else if (minutes > 0) {
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
     } else {
-      return `${seconds} second${seconds !== 1 ? 's' : ''} ago`;
+      return `${seconds} second${seconds !== 1 ? "s" : ""} ago`;
     }
-  }
+  };
 
   return (
     <div className="bg-gray-800 p-6 rounded shadow relative">
@@ -121,9 +110,7 @@ const SongComponent = ({ content, title, songId, commentId }) => {
         </button>
       </div>
       <h2 className="text-2xl font-bold text-white mb-2">{title}</h2>
-      <h3 className="text-lg text-gray-300 mb-4">
-        On the song {songName} by {}
-      </h3>
+
       <p className="text-white mb-4">{content}</p>
       <p className="text-gray-400">Created {timeAgo(time)}</p>
       <button
