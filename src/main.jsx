@@ -27,8 +27,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/comments" element={<ViewComments />} />
           <Route path="/edit/:commentId" element={<EditComment />} />
           <Route path="/viewsongs/:albumId" element={<ViewSongs />} />
-          
-          {/* <Route path="/create" element={<CreatePokemon />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
