@@ -44,7 +44,7 @@ const SearchPage = () => {
                     <li className="bg-gray-800 rounded-lg shadow-lg">
                       <CommentComponent
                         title={result.title}
-                        songId={result.song_id}
+                        search={true}
                         commentId={result.id}
                       />
                     </li>

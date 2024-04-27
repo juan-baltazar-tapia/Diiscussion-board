@@ -104,8 +104,9 @@ const ViewComments = () => {
                     </button>
                   </div>
                 </div>
-                <div className="px-6 py-4">
+                <div className="py-2">
                   <CommentComponent
+                  search={false}
   
                     commentId={comment.id}
                   />

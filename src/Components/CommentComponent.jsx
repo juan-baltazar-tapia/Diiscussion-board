@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../client";
 import { Link } from "react-router-dom";
 
-const CommentComponent = ({ commentId }) => {
-
+const CommentComponent = ({ title, search, commentId }) => {
   const [time, setTime] = useState("");
   const [upvotes, setUpvotes] = useState(0);
 
@@ -13,7 +12,7 @@ const CommentComponent = ({ commentId }) => {
         .from("comments")
         .select()
         .eq("id", commentId);
-   
+
       setUpvotes(data[0].upvotes);
       setTime(data[0].created_at);
     };
@@ -66,7 +65,8 @@ const CommentComponent = ({ commentId }) => {
   };
 
   return (
-    <div className="bg-gray-800 p-1 rounded-lg  relative">
+    <div className="bg-gray-800 p-6 rounded-lg relative">
+      {search ? <h1 className="text-2xl font-bold mb-4">{title}</h1> : null}
       <p className="text-gray-400 text-sm mb-4">Created {timeAgo(time)}</p>
       <button
         onClick={async () => {
