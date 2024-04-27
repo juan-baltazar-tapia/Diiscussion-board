@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../client";
 import { Link } from "react-router-dom";
 
-const SongComponent = ({ content, title, songId, commentId }) => {
+const CommentComponent = ({ content, title, songId, commentId }) => {
 
   const [time, setTime] = useState("");
   const [upvotes, setUpvotes] = useState(0);
@@ -13,7 +13,7 @@ const SongComponent = ({ content, title, songId, commentId }) => {
         .from("comments")
         .select()
         .eq("id", commentId);
-      console.log("data from songcomonent",data[0])
+   
       setUpvotes(data[0].upvotes);
       setTime(data[0].created_at);
     };
@@ -132,4 +132,4 @@ const SongComponent = ({ content, title, songId, commentId }) => {
   );
 };
 
-export default SongComponent;
+export default CommentComponent;

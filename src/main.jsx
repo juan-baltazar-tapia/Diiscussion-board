@@ -10,6 +10,7 @@ import MakeComment from "./pages/MakeComment";
 import EditComment from "./pages/EditComment";
 import ViewSpecifcSong from "./pages/ViewSpecifcSong";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SearchPage from "./pages/SearchPage";
 import "./index.css";
 import ViewComments from "./pages/ViewComments";
 import ViewSongs from "./pages/ViewSongs";
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/edit/:commentId" element={<EditComment />} />
           <Route path="/viewsongs/:albumId" element={<ViewSongs />} />
           <Route path="/song/:commentId" element={<ViewSpecifcSong />} />
+          <Route path="/search/:searchTerm" element={<SearchPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

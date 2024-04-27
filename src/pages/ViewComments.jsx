@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { supabase } from "../client";
-import SongComponent from "../Components/SongComponent";
+import SongComponent from "../Components/CommentComponent";
 import { Link } from "react-router-dom";
 
 const ViewComments = () => {
