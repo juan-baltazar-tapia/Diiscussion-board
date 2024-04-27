@@ -1,4 +1,4 @@
-# Web Development Final Project - EDM discussion board
+# Web Development Final Project - Album discussion board
 
 Submitted by: Juan Baltazar Tapia
 
