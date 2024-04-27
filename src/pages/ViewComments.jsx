@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { supabase } from "../client";
-import SongComponent from "../Components/CommentComponent";
+import CommentComponent from "../Components/CommentComponent";
 import { Link } from "react-router-dom";
 
 const ViewComments = () => {
@@ -35,6 +35,24 @@ const ViewComments = () => {
     setSortByUpvotes(!sortByUpvotes);
   };
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+
+    if (confirmDelete) {
+      const { data, error } = await supabase
+        .from("comments")
+        .delete()
+        .eq("id", id);
+      window.location = "/comments";
+    }
+
+    if (confirmDelete && error) {
+      alert("Unable to delete comment", error);
+    }
+  };
+
   return (
     <div className="bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -45,26 +63,55 @@ const ViewComments = () => {
           </h3>
           <button
             onClick={handleClick}
-            className="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75"
+            className="px-4 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-200"
           >
             Toggle Sort
           </button>
         </div>
         <ul className="grid grid-cols-1 gap-8">
           {comments &&
-            comments.map((comment, index) => {
-              return (
-                <Link key={index} to={`/song/${comment.id}`}>
-                  <li className="bg-gray-800 rounded-lg shadow-lg">
-                    <SongComponent
-                      title={comment.title}
-                      songId={comment.song_id}
-                      commentId={comment.id}
-                    />
-                  </li>
-                </Link>
-              );
-            })}
+            comments.map((comment, index) => (
+              <div
+                key={index}
+                className="bg-gray-800 rounded-lg shadow-lg overflow-hidden"
+              >
+                <div className="flex items-center justify-between px-6 py-4 bg-gray-700">
+                  <Link to={`/song/${comment.id}`}>
+                    <h2 className="text-2xl font-bold text-white">
+                      {comment.title}
+                    </h2>
+                  </Link>
+                  <div className="flex space-x-2">
+                    <Link
+                      to={"/edit/" + comment.id}
+                      className="text-green-500 hover:text-green-600 transition duration-200"
+                    >
+                      <img
+                        className="edit-icon w-6 h-6"
+                        alt="edit button"
+                        src="/src/assets/more.png"
+                      />
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(comment.id)}
+                      className="text-red-500 hover:text-red-600 transition duration-200"
+                    >
+                      <img
+                        className="delete-icon w-6 h-6"
+                        alt="delete button"
+                        src="/src/assets/delete.png"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <div className="px-6 py-4">
+                  <CommentComponent
+  
+                    commentId={comment.id}
+                  />
+                </div>
+              </div>
+            ))}
         </ul>
       </div>
     </div>

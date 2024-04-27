@@ -57,14 +57,14 @@ const NavBar = () => {
                 View Comments
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="/login"
                 className="bg-white text-black hover:bg-green-400 hover:text-white px-4 py-2 rounded-full text-md  font-medium"
               >
                 Login
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>

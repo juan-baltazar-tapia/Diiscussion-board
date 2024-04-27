@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../client";
 import { Link } from "react-router-dom";
 
-const CommentComponent = ({ content, title, songId, commentId }) => {
+const CommentComponent = ({ commentId }) => {
 
   const [time, setTime] = useState("");
   const [upvotes, setUpvotes] = useState(0);
@@ -37,24 +37,6 @@ const CommentComponent = ({ content, title, songId, commentId }) => {
     }
   };
 
-  const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this comment?"
-    );
-
-    if (confirmDelete) {
-      const { data, error } = await supabase
-        .from("comments")
-        .delete()
-        .eq("id", commentId);
-      window.location = "/comments";
-    }
-
-    if (confirmDelete && error) {
-      alert("Unable to delete comment", error);
-    }
-  };
-
   const timeAgo = (timestamp) => {
     // Parse the timestamp string into a Date object
     const createdAt = new Date(timestamp);
@@ -84,49 +66,20 @@ const CommentComponent = ({ content, title, songId, commentId }) => {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded shadow relative">
-      <div className="absolute top-4 right-4 flex space-x-2">
-        <Link
-          to={"/edit/" + commentId}
-          className="text-green-500 hover:text-green-600"
-        >
-          <img
-            className="edit-icon"
-            alt="edit button"
-            src="/src/assets/more.png"
-            width="25px"
-          />
-        </Link>
-        <button
-          onClick={handleDelete}
-          className="text-red-500 hover:text-red-600"
-        >
-          <img
-            className="delete-icon"
-            alt="delete button"
-            src="/src/assets/delete.png"
-            width="25px"
-          />
-        </button>
-      </div>
-      <h2 className="text-2xl font-bold text-white mb-2">{title}</h2>
-
-      <p className="text-white mb-4">{content}</p>
-      <p className="text-gray-400">Created {timeAgo(time)}</p>
+    <div className="bg-gray-800 p-1 rounded-lg  relative">
+      <p className="text-gray-400 text-sm mb-4">Created {timeAgo(time)}</p>
       <button
         onClick={async () => {
           await handleClick();
         }}
-        className="flex items-center text-green-500 hover:text-green-600"
+        className="flex items-center text-green-500 hover:text-green-600 transition duration-200"
       >
         <img
-          className="upvote-icon"
+          className="upvote-icon w-5 h-5 mr-2"
           alt="upvote-button"
           src="/src/assets/upvote.jpg"
-          width="20px"
         />
-
-        <span className="font-bold">{upvotes}</span>
+        <span className="font-bold text-lg">{upvotes}</span>
       </button>
     </div>
   );

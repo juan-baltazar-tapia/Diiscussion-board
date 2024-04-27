@@ -6,7 +6,6 @@ const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 const ViewSongs = () => {
   const { albumId } = useParams();
   const [songs, setSongs] = useState();
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const [albumInfo, setAlbumInfo] = useState({
     album_name: "",
