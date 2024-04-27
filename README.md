@@ -2,9 +2,9 @@
 
 Submitted by: Juan Baltazar Tapia
 
-This web app: Search up a artist and add an album to the discussion! Write down your opinions on every song and upvote thoughfull and intriquing posts. Upvote your favorite album and enjoy the community.
+This web app: Search up a artist and add an album to the discussion! Write down your opinions on every song and upvote thoughfull and intriquing posts. Upvote your favorite songs and comments and enjoy the community.
 
-Time spent: 8 hours spent in total
+Time spent: 16 hours spent in total
 
 ## Required Features
 
@@ -13,11 +13,11 @@ The following **required** functionality is completed:
 - [X] **A create form that allows the user to create posts**
 - [X] **Posts have a title and optionally additional textual content and/or an image added as an external image URL**
 - [X] **A home feed displaying previously created posts**
-- [ ] **By default, the time created, title, and number of upvotes for each post is shown on the feed**
-- [ ] **Clicking on a post shall direct the user to a new page for the selected post**
-- [ ] **Users can sort posts by either their created time or upvotes count**
-- [ ] **Users can search for posts by title**
-- [ ] **A separate post page for each created post, where any additional information is shown is linked whenever a user clicks a post**
+- [X] **By default, the time created, title, and number of upvotes for each post is shown on the feed**
+- [X] **Clicking on a post shall direct the user to a new page for the selected post**
+- [X] **Users can sort posts by either their created time or upvotes count**
+- [X] **Users can search for posts by title**
+- [X] **A separate post page for each created post, where any additional information is shown is linked whenever a user clicks a post**
 - [ ] **Users can leave comments underneath a post on the post's separate page**
 - [X] **Each post should have an upvote button on the post's page. Each click increases its upvotes count by one and users can upvote any number of times**
 - [X] **A previously created post can be edited or deleted from its post page**
@@ -36,18 +36,30 @@ The following **optional** features are implemented:
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough of the website in 4 seperate parts
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+Creating comments, viewing previous posts (comments), and clicking on comment to view more info.
+
+<img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDAzbjByb2FvZjMxbnFwcTkzbWFlZXJqbDJxam8wanc4bHRjenRzNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JhyizLjshOLFTGwOLl/giphy.gif' title='Video Walkthrough' width='600px' alt='Video Walkthrough' />
+Toggling comments by upvotes and time created, editing and deleting comments.
+
+<img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZWpnbXdxOG9hemt0dHhpZ3V1ejB1Z2Rsc252bmFhaWY1NWIwcjVveSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lEQq3HyMT7MvC2QFll/giphy.gif' title='Video Walkthrough' width='600px' alt='Video Walkthrough' />
+
+Upvoting multiple comments and adding an album to the album list.
+
+<img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmoyMmY2ejFvbzF3eGpla3RleDAwemN0aGVsNHFsc3k5MDRvZzJ3YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/8WMYWMYT6gqm377uWK/giphy.gif' title='Video Walkthrough' width='600px' alt='Video Walkthrough' />
+
+Searching comments by title.
+
+<img src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmU2cW95amN4d2Y1amVzbmRzMHl4bzF3OXJlOGd2OHA4cWlvcmNkayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Vd1CunQU9XlahF37FG/giphy.gif' title='Video Walkthrough' width='600px' alt='Video Walkthrough' />
 
 
 GIF created with ...  
-
 [Kap](https://getkap.co/) for macOS
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+The most challenging aspect of working on this discussion board was understanding the one to many relations between artists to albums, albums to songs, and songs to comments and implementing the funcitonality into it.
 
 ## License
 
