@@ -1,10 +1,10 @@
-# Web Development Final Project - Album discussion board
+# Web Development Final Project - Gas or Pass
 
 Submitted by: Juan Baltazar Tapia
 
 This web app: Search up a artist and add an album to the discussion! Write down your opinions on every song and upvote thoughfull and intriquing posts. Upvote your favorite songs and comments and enjoy the community.
 
-Time spent: 16 hours spent in total
+Time spent: 20 hours spent in total
 
 ## Required Features
 
