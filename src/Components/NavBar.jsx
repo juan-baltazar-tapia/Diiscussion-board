@@ -16,7 +16,7 @@ const NavBar = () => {
         <nav className="flex items-center justify-between py-4">
           <div className="flex items-center">
             <Link to="/" className="text-4xl font-bold text-white mr-6">
-              Album & EP Discussion Board
+              Gas 🔥 or Pass 💨
             </Link>
           </div>
           <ul className="flex space-x-4">
