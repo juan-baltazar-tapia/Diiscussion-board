@@ -20,9 +20,7 @@ const HomePage = () => {
       body: "grant_type=client_credentials",
     });
     const data = await response.json();
-
-    console.log("ACEESS TOKEN", data.access_token);
-    return data.access_token;
+    console.log(data.access_token);
   };
 
   useEffect(() => {
@@ -44,8 +42,12 @@ const HomePage = () => {
 
   return (
     <div className="bg-gray-900 text-white min-h-screen">
-      {/* <h2>Get access token</h2>
-      <button onClick={handleClick}>Get token</button> */}
+      <button
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        onClick={handleClick}
+      >
+        Get token
+      </button>
       <div className="container mx-auto py-8">
         <h1 className="text-4xl font-bold mb-8">Latest Discussion</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
