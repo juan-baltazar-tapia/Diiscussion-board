@@ -125,7 +125,7 @@ npm run dev
 
 You will be taken to the home page
 
-## Open console and click on get token on the top right
+## Open console and click on _get token_ on the top left
 Copy and paste the access token into the .env file
 
 ```js
