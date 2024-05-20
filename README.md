@@ -11,7 +11,7 @@ git clone https://github.com/juan-baltazar-tapia/Gas-or-Pass.git
 ## install node modules, I used node version 20.11.1
 cd into the folder 
 ```js
-npm Gas-or-Pass
+cd Gas-or-Pass
 ```
 and run npm install
 ```js
