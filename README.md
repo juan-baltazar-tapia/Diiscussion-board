@@ -1,38 +1,138 @@
-# Web Development Final Project - Gas or Pass
+# Gas or Pass
 
-Submitted by: Juan Baltazar Tapia
+ Search up a artist and add an album to the discussion! Write down your opinions on every song and upvote thoughfull and intriquing posts. Upvote your favorite songs and comments and enjoy the community.
 
-This web app: Search up a artist and add an album to the discussion! Write down your opinions on every song and upvote thoughfull and intriquing posts. Upvote your favorite songs and comments and enjoy the community.
+## Setup
 
-Time spent: 20 hours spent in total
+git clone the repository by copy and pasting the following code into your terminal in the desired location.
+```js
+git clone https://github.com/juan-baltazar-tapia/Gas-or-Pass.git
+```
+## install node modules, I used node version 20.11.1
+cd into the folder 
+```js
+npm Gas-or-Pass
+```
+and run npm install
+```js
+npm install
+```
 
-## Required Features
+If you don't have nvm or node installed, heres a link
+https://nodejs.org/en/download/package-manager/
 
-The following **required** functionality is completed:
 
-- [X] **A create form that allows the user to create posts**
-- [X] **Posts have a title and optionally additional textual content and/or an image added as an external image URL**
-- [X] **A home feed displaying previously created posts**
-- [X] **By default, the time created, title, and number of upvotes for each post is shown on the feed**
-- [X] **Clicking on a post shall direct the user to a new page for the selected post**
-- [X] **Users can sort posts by either their created time or upvotes count**
-- [X] **Users can search for posts by title**
-- [X] **A separate post page for each created post, where any additional information is shown is linked whenever a user clicks a post**
-- [ ] **Users can leave comments underneath a post on the post's separate page**
-- [X] **Each post should have an upvote button on the post's page. Each click increases its upvotes count by one and users can upvote any number of times**
-- [X] **A previously created post can be edited or deleted from its post page**
+## Creat a .env file under Gas-or-Pass
+and paste the folloing into the .env file
+```js
+VITE_CLIENT_ID = ''
+VITE_CLIENT_SECRET = ''
+VITE_SUPABASE_URL = ''
+VITE_SUPABASE_KEY = ''
+VITE_ACCESS_TOKEN = ''
+```
 
-The following **optional** features are implemented:
+## You will need a spotify developer account to get a client_id and client_secret
 
-- [ ] Users can only edit and deleted posts or delete comments by entering the secret key, which is set by the user during post creation
-- [ ] Upon launching the web app, the user is assigned a random user ID. It will be associated with all posts and comments that they make and displayed on them.
-- [ ] Users can repost a previous post by referencing its post ID. On the post page of the new post, the referenced post is displayed and linked, creating a thread
-- [ ] Users can customize the interface of the web app
-- [ ] Users can share and view web videos
-- [ ] Users can set flags while creating a post. Then users can filter posts by flags on the home feed.
-- [ ] Users can upload images directly from their local machine as an image file
-- [ ] Display a loading animation whenever data is being fetched
+First create an account at
+https://developer.spotify.com/documentation/web-api
 
+Next, create an app
+https://developer.spotify.com/documentation/web-api/concepts/apps
+
+Click on settings on the top right and copy and paset client ID and client secret into your .env file
+```js
+VITE_CLIENT_ID = 'paste_client_id'
+VITE_CLIENT_SECRET = 'paste_client_secret'
+```
+
+## Next you will need a supabase account
+Create an account at
+https://supabase.com/
+
+Create a project, and click on SQL editor on the left hand side.
+
+<img width="210" alt="Screenshot 2024-05-02 at 11 29 43 PM" src="https://github.com/juan-baltazar-tapia/Flavor-Fusion/assets/73971599/2709840a-6d05-4a08-bcfd-a69b18a2f136">
+
+Copy and paste the following querie, and click run on the bottom left hand side.
+```js
+CREATE TABLE albums (
+  id UUID PRIMARY KEY,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  artist_id UUID,
+  total_tracks INT,
+  album_name VARCHAR,
+  release_date DATE,
+  artist_name VARCHAR,
+  label VARCHAR,
+  album_cover VARCHAR,
+  artist_link VARCHAR,
+  album_link VARCHAR
+);
+```
+
+```js
+CREATE TABLE artists (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  name VARCHAR
+);
+```
+
+```js
+CREATE TABLE comments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  song_id UUID,
+  content TEXT,
+  upvotes INT DEFAULT 0,
+  title VARCHAR
+);
+```
+
+```js
+CREATE TABLE comments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  album_id UUID,
+  title VARCHAR,
+  upvotes INT DEFAULT 0,
+  preview_uri VARCHAR,
+  duration INT,
+  comments INT DEFAULT 0
+);
+```
+
+## Next go into settings on the bottom left side
+
+<img width="205" alt="Screenshot 2024-05-02 at 11 38 48 PM" src="https://github.com/juan-baltazar-tapia/Flavor-Fusion/assets/73971599/de9c9bc3-08dd-4a2e-97ce-e0cd95b12518">
+
+
+Under configuration, click on API
+
+<img width="251" alt="Screenshot 2024-05-02 at 11 39 15 PM" src="https://github.com/juan-baltazar-tapia/Flavor-Fusion/assets/73971599/7307879a-8e74-4e04-b43d-4f05fd9f4e17">
+
+## Copy and paste Project URL into VITE_SUPABASE_URL, and anon public Project Api Key into VITE_SUPABASE_KEY
+```js
+VITE_SUPABASE_URL = 'insert_ProjecRurl'
+VITE_SUPABASE_KEY = 'insert_AnonPublicKey'
+```
+
+## Run npm run dev to start the server
+```js
+npm run dev
+```
+
+You will be taken to the home page
+
+## Open console and click on get token on the top right
+Copy and paste the access token into the .env file
+
+```js
+VITE_ACCESS_TOKEN = 'insert_access_token'
+```
+
+Now you will be able to search artists, their albums, and add songs!
 
 ## Video Walkthrough
 
@@ -56,10 +156,6 @@ Searching comments by title.
 
 GIF created with ...  
 [Kap](https://getkap.co/) for macOS
-
-## Notes
-
-The most challenging aspect of working on this discussion board was understanding the one to many relations between artists to albums, albums to songs, and songs to comments and implementing the funcitonality into it.
 
 ## License
 
