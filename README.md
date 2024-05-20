@@ -83,7 +83,7 @@ CREATE TABLE artists (
 CREATE TABLE comments (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  song_id UUID KEY DEFAULT gen_random_uuid(),
+  song_id UUID DEFAULT gen_random_uuid(),
   content TEXT,
   upvotes INT DEFAULT 0,
   title VARCHAR
@@ -94,7 +94,7 @@ CREATE TABLE comments (
 CREATE TABLE songs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  album_id UUID KEY DEFAULT gen_random_uuid(),
+  album_id UUID DEFAULT gen_random_uuid(),
   title VARCHAR,
   upvotes INT DEFAULT 0,
   preview_uri VARCHAR,
